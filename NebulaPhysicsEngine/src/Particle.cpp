@@ -5,6 +5,13 @@ using namespace Nebula::Aliases;
 
 namespace Nebula::Core
 {
+	void Particle::ClearAccumulator()
+	{
+		mForceAccumulator.x = 0.0f;
+		mForceAccumulator.y = 0.0f;
+		mForceAccumulator.z = 0.0f;
+	}
+
 	void Particle::SetPosition(real x, real y, real z)
 	{
 		mPosition.x = x;
@@ -98,13 +105,26 @@ namespace Nebula::Core
 		mPosition.AddScaledVector(mVelocity, duration);
 		
 		Vector3 resultingAcceleration = mAcceleration;
+		resultingAcceleration.AddScaledVector(mForceAccumulator, mInverseMass);
 
 		mVelocity.AddScaledVector(resultingAcceleration, duration);
 		mVelocity *= RealPow(mDamping, duration);
+
+		ClearAccumulator();
 	}
 
 	real Particle::GetKineticEnergy() const
 	{
 		return GetMass() / 2 * mVelocity.GetSquaredMagnitude();
+	}
+
+	void Particle::AddForce(const Vector3& force)
+	{
+		mForceAccumulator += force;
+	}
+
+	bool Particle::IsStaticBody() const
+	{
+		return mInverseMass == 0.0f;
 	}
 }

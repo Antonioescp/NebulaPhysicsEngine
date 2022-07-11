@@ -14,8 +14,20 @@ namespace Nebula::Core
 		Vector3 mPosition{};
 		Vector3 mVelocity{};
 		Vector3 mAcceleration{};
+
+		// This helps to simulate any kind of friction, a value in range (1.00f, 0.00f) should be used
 		real mDamping{};
+
+		// This helps to identify wether the object is static or not, setting this to 0 is equal to setting the particle
+		// to infinite mass so it can't be moved
 		real mInverseMass{};
+
+		// This holds the sum of all forces applied to the object and is set to zero after every integration step
+		// since the forces need to be processed at the moment they are applied to the object
+		Vector3 mForceAccumulator{};
+
+		// This clears the force accumulator, sets it to zero
+		void ClearAccumulator();
 
 	public:
 
@@ -42,5 +54,9 @@ namespace Nebula::Core
 		void Integrate(real duration);
 
 		real GetKineticEnergy() const;
+
+		void AddForce(const Vector3& force);
+
+		bool IsStaticBody() const;
 	};
 }

@@ -14,10 +14,10 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     , movementSpeed(SPEED)
     , mouseSensitivity(SENSITIVITY), zoom(ZOOM)
 {
-    position = position;
+    this->position = position;
     worldUp = up;
-    yaw = yaw;
-    pitch = pitch;
+    this->yaw = yaw;
+    this->pitch = pitch;
     updateCameraVectors();
 }
 
@@ -27,10 +27,10 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float u
     , movementSpeed(SPEED)
     , mouseSensitivity(SENSITIVITY), zoom(ZOOM)
 {
-    position = glm::vec3(posX, posY, posZ);
-    worldUp = glm::vec3(upX, upY, upZ);
-    yaw = yaw;
-    pitch = pitch;
+    this->position = glm::vec3(posX, posY, posZ);
+    this->worldUp = glm::vec3(upX, upY, upZ);
+    this->yaw = yaw;
+    this->pitch = pitch;
     updateCameraVectors();
 }
 

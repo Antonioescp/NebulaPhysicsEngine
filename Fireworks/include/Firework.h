@@ -31,6 +31,8 @@ public:
 
 		Nebula::real minDamping;
 		Nebula::real maxDamping;
+
+		glm::vec3 color;
 		
 		// Rule to apply to children fireworks
 		Rule* childrenRule{ nullptr };
@@ -43,6 +45,7 @@ public:
 			Nebula::real maxSpeed,
 			Nebula::real minDamping,
 			Nebula::real maxDamping,
+			glm::vec3 color,
 			std::optional<Rule> childrenRule
 		)
 			: payloadCount{payloadCount}
@@ -53,6 +56,7 @@ public:
 			, minDamping{minDamping}
 			, maxDamping{ maxDamping }
 			, childrenRule{ nullptr }
+			, color{ color }
 		{
 			if (childrenRule.has_value()) this->childrenRule = new Rule{ std::move(*childrenRule) };
 		}
@@ -66,6 +70,7 @@ public:
 			maxSpeed = rhs.maxSpeed;
 			minDamping = rhs.minDamping;
 			maxDamping = rhs.maxDamping;
+			color = rhs.color;
 			childrenRule = rhs.childrenRule;
 			rhs.childrenRule = nullptr;
 		}
@@ -88,6 +93,7 @@ public:
 		, mChildrenRule{ childrenRule }
 		, mShouldExplode{ false }
 		, mHasExploded{ false }
+		, mColor{ 1.0f, 1.0f, 1.0f }
 	{}
 
 	// Applies the rule to the firework itself 
@@ -98,6 +104,7 @@ public:
 		, mChildrenRule{ fireworkRule.childrenRule }
 		, mShouldExplode{ false }
 		, mHasExploded{ false }
+		, mColor{ fireworkRule.color }
 	{
 		SetDamping(GetRandomRange(fireworkRule.minDamping, fireworkRule.maxDamping));
 
@@ -169,6 +176,11 @@ public:
 	{
 		return mBaseFuseTime;
 	}
+
+	glm::vec3 GetColor() const
+	{
+		return mColor;
+	}
 	
 private:
 
@@ -187,4 +199,6 @@ private:
 
 	// Keeps track of detonation status
 	bool mHasExploded;
+
+	glm::vec3 mColor;
 };

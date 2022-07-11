@@ -10,6 +10,9 @@
 *.userosscache
 *.sln.docstates
 
+# Ignore exercises
+[Ee]xercise[0-9]-[0-9]/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

@@ -72,6 +72,7 @@ private:
 				150.0f, // maximum speed
 				0.50f, // minimum damping
 				0.99f, // maximum damping
+				{ 1.0f, 0.0f, 0.0f },
 				Firework::Rule{ // Children rule
 					0,
 					1.0f,
@@ -80,6 +81,7 @@ private:
 					150.0f,
 					0.01f,
 					0.60f,
+					{ 1.0f, 1.0f, 0.0f },
 					{}
 				}
 			}
@@ -93,16 +95,19 @@ private:
 				0.0f, 0.0f,
 				0.99f,
 				0.99f,
+				{ 1.0f, 0.0f, 1.0f },
 				Firework::Rule {
 					25,
 					0.25f, 0.50f,
 					50.0f, 100.0f,
 					0.01f, 0.60f,
+					{ 1.0f, 0.5f, 0.5f },
 					Firework::Rule {
 						0,
 						0.50f, 0.75f,
 						50.0f, 100.0f,
 						0.01f, 0.60f,
+						{ 1.0f, 1.0f, 0.5f },
 						{}
 					}
 				}
@@ -116,16 +121,19 @@ private:
 				1.00f, 1.25f,
 				0.00f, 0.00f,
 				0.99f, 0.99f,
+				{ 1.0f, 0.0f, 0.0f },
 				Firework::Rule {
 					5,
 					0.25f, 0.50f,
 					25.0f, 50.0f,
 					0.05f, 0.10f,
+					{ 0.0f, 1.0f, 0.0f },
 					Firework::Rule {
 						0,
 						2.00f, 2.00f,
 						05.0f, 15.0f,
 						0.01f, 0.10f,
+						{ 0.0f, 0.0f, 1.0f },
 						{}
 					}
 				}
@@ -139,21 +147,25 @@ private:
 				0.75f, 1.00f,
 				0.0f, 0.0f,
 				0.99f, 0.99f,
+				{ 1.0f, 0.0f, 0.0f },
 				Firework::Rule {
 					4,
 					0.10f, 0.15f,
 					5.0f, 20.0f,
 					0.05f, 0.10f,
+					{ 1.0f, 1.0f, 0.0f },
 					Firework::Rule {
 						4,
 						0.10f, 0.15f,
 						5.0f, 20.0f,
 						0.05f, 0.10f,
+						{ 0.0f, 1.0f, 1.0f },
 						Firework::Rule {
 							4,
 							1.0f, 2.0f,
 							5.0f, 20.0f,
 							0.01f, 0.05f,
+							{ 0.0f, 0.0f, 1.0f },
 							{}
 						}
 					}
@@ -260,10 +272,11 @@ protected:
 		for (auto& firework : mFireworks)
 		{
 			mRenderer.position = firework.GetPosition();
-			mRenderer.color = { 
-				GetRandomRange(0.1f, 1.0f), 
-				GetRandomRange(0.1f, 1.0f), 
-				GetRandomRange(0.1f, 1.0f) 
+
+			mRenderer.color = {
+				GetRandomRange(0.0f, 1.0f),
+				GetRandomRange(0.0f, 1.0f),
+				GetRandomRange(0.0f, 1.0f)
 			};
 
 			Nebula::real currentScale{ firework.GetAge() / firework.GetBaseAge() };
