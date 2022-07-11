@@ -8,7 +8,7 @@ namespace Nebula
 	inline namespace Aliases
 	{
 		export using real = float;
-		export const extern function<real(real)> real_sqrt{ sqrtf };
-		export const extern function<real(real, real)> real_pow{ powf };
+		export const extern function<real(real)> RealSqrt{ sqrtf };
+		export const extern function<real(real, real)> RealPow{ powf };
 	}
 }

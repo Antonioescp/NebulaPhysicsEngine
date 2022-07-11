@@ -5,12 +5,12 @@ using namespace Nebula::Aliases;
 
 namespace Nebula::Core
 {
-	void Vector3::makeOrthonormalBasis(Vector3& a, Vector3& b, Vector3& c)
+	void Vector3::MakeOrthonormalBasis(Vector3& a, Vector3& b, Vector3& c)
 	{
-		a.normalize();
+		a.Normalize();
 		c = a % b;
-		if (c.getSquaredMagnitude() == 0.0) return;
-		c.normalize();
+		if (c.GetSquaredMagnitude() == 0.0) return;
+		c.Normalize();
 		b = c % a;
 	}
 
@@ -27,26 +27,26 @@ namespace Nebula::Core
 		z = source.z;
 	}
 
-	void Vector3::invert()
+	void Vector3::Invert()
 	{
 		x = -x;
 		y = -y;
 		z = -z;
 	}
 
-	real Vector3::getMagnitude() const
+	real Vector3::GetMagnitude() const
 	{
-		return real_sqrt(x * x + y * y + z * z);
+		return RealSqrt(x * x + y * y + z * z);
 	}
 
-	real Vector3::getSquaredMagnitude() const
+	real Vector3::GetSquaredMagnitude() const
 	{
 		return x * x + y * y + z * z;
 	}
 
-	Vector3& Vector3::normalize()
+	Vector3& Vector3::Normalize()
 	{
-		real mag = getMagnitude();
+		real mag = GetMagnitude();
 		if (mag > 0)
 		{
 			(*this) *= (static_cast<real>(1) / mag);
@@ -54,12 +54,12 @@ namespace Nebula::Core
 		return *this;
 	}
 
-	Vector3 Vector3::getNormalized() const
+	Vector3 Vector3::GetNormalized() const
 	{
-		return Vector3{ *this }.normalize();
+		return Vector3{ *this }.Normalize();
 	}
 
-	void Vector3::addScaledVector(const Vector3& rhs, real scale)
+	void Vector3::AddScaledVector(const Vector3& rhs, real scale)
 	{
 		x += rhs.x * scale;
 		y += rhs.y * scale;
@@ -118,12 +118,12 @@ namespace Nebula::Core
 		return { x / scalar, y / scalar, z / scalar };
 	}
 
-	Vector3 Vector3::getComponentProduct(const Vector3& rhs) const
+	Vector3 Vector3::GetComponentProduct(const Vector3& rhs) const
 	{
 		return { x * rhs.x, y * rhs.y, z * rhs.z };
 	}
 
-	const Vector3& Vector3::assignComponentProduct(const Vector3& rhs)
+	const Vector3& Vector3::AssignComponentProduct(const Vector3& rhs)
 	{
 		x *= rhs.x;
 		y *= rhs.y;
@@ -137,7 +137,7 @@ namespace Nebula::Core
 	}
 
 
-	real Vector3::getDotProduct(const Vector3& rhs) const
+	real Vector3::GetDotProduct(const Vector3& rhs) const
 	{
 		return x * rhs.x + y * rhs.y + z * rhs.z;
 	}
@@ -151,7 +151,7 @@ namespace Nebula::Core
 		};
 	}
 
-	Vector3 Vector3::getCrossProduct(const Vector3& rhs) const
+	Vector3 Vector3::GetCrossProduct(const Vector3& rhs) const
 	{
 		return {
 			y * rhs.z - z * rhs.y,
@@ -160,7 +160,7 @@ namespace Nebula::Core
 		};
 	}
 
-	const Vector3& Vector3::assignCrossProduct(const Vector3& rhs)
+	const Vector3& Vector3::AssignCrossProduct(const Vector3& rhs)
 	{
 		x = y * rhs.z - z * rhs.y;
 		y = z * rhs.x - x * rhs.z;

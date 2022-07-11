@@ -1,24 +1,24 @@
 #include <Window.h>
 
 Window::Window(int width, int height, std::string_view title)
-	: deltaTime{}
+	: mDeltaTime{}
 {
 	glfwInit();
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	window = glfwCreateWindow(width, height, title.data(), nullptr, nullptr);
-	glfwMakeContextCurrent(window);
+	mWindow = glfwCreateWindow(width, height, title.data(), nullptr, nullptr);
+	glfwMakeContextCurrent(mWindow);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	glViewport(0, 0, width, height);
 
-	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
+	glfwSetFramebufferSizeCallback(mWindow, FramebufferSizeCallback);
 }
 
 Window::~Window()
 {
-	glfwDestroyWindow(window);
+	glfwDestroyWindow(mWindow);
 	glfwTerminate();
 }
 
@@ -30,10 +30,10 @@ void Window::RunLoop()
 	glfwSwapInterval(0);
 	
 	float previousFrame = glfwGetTime();
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(mWindow))
 	{
 		float currentTime = glfwGetTime();
-		deltaTime = currentTime - previousFrame;
+		mDeltaTime = currentTime - previousFrame;
 		previousFrame = currentTime;
 
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -42,13 +42,13 @@ void Window::RunLoop()
 		Update();
 		Draw();
 
-		glfwSwapBuffers(window);
+		glfwSwapBuffers(mWindow);
 		glfwPollEvents();
 	}
 }
 
 float Window::GetDeltaTime() const {
-	return deltaTime;
+	return mDeltaTime;
 }
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)

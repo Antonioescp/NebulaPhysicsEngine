@@ -5,106 +5,106 @@ using namespace Nebula::Aliases;
 
 namespace Nebula::Core
 {
-	void Particle::setPosition(real x, real y, real z)
+	void Particle::SetPosition(real x, real y, real z)
 	{
-		position.x = x;
-		position.y = y;
-		position.z = z;
+		mPosition.x = x;
+		mPosition.y = y;
+		mPosition.z = z;
 	}
 
-	void Particle::setPosition(const Vector3& newPosition)
+	void Particle::SetPosition(const Vector3& newPosition)
 	{
-		position = newPosition;
+		mPosition = newPosition;
 	}
 
-	Vector3 Particle::getPosition() const
+	Vector3 Particle::GetPosition() const
 	{
-		return position;
+		return mPosition;
 	}
 
-	void Particle::setVelocity(real x, real y, real z)
+	void Particle::SetVelocity(real x, real y, real z)
 	{
-		velocity.x = x;
-		velocity.y = y;
-		velocity.z = z;
+		mVelocity.x = x;
+		mVelocity.y = y;
+		mVelocity.z = z;
 	}
 
-	void Particle::setVelocity(const Vector3& newVelocity)
+	void Particle::SetVelocity(const Vector3& newVelocity)
 	{
-		velocity = newVelocity;
+		mVelocity = newVelocity;
 	}
 
-	Vector3 Particle::getVelocity() const
+	Vector3 Particle::GetVelocity() const
 	{
-		return velocity;
+		return mVelocity;
 	}
 
-	void Particle::setAcceleration(real x, real y, real z)
+	void Particle::SetAcceleration(real x, real y, real z)
 	{
-		acceleration.x = x;
-		acceleration.y = y;
-		acceleration.z = z;
+		mAcceleration.x = x;
+		mAcceleration.y = y;
+		mAcceleration.z = z;
 	}
 
-	void Particle::setAcceleration(const Vector3& newAcceleration)
+	void Particle::SetAcceleration(const Vector3& newAcceleration)
 	{
-		acceleration = newAcceleration;
+		mAcceleration = newAcceleration;
 	}
 
-	Vector3 Particle::getAcceleration() const
+	Vector3 Particle::GetAcceleration() const
 	{
-		return acceleration;
+		return mAcceleration;
 	}
 
-	void Particle::setDamping(real newDamping)
+	void Particle::SetDamping(real newDamping)
 	{
-		damping = (newDamping >= 0) ? newDamping : static_cast<real>(0.0);
+		mDamping = (newDamping >= 0) ? newDamping : static_cast<real>(0.0);
 	}
 
-	real Particle::getDamping() const
+	real Particle::GetDamping() const
 	{
-		return damping;
+		return mDamping;
 	}
 
-	real Particle::getMass() const 
+	real Particle::GetMass() const 
 	{
-		return static_cast<real>(1.0) / inverseMass;
+		return static_cast<real>(1.0) / mInverseMass;
 	}
 
-	void Particle::setMass(real newMass) 
+	void Particle::SetMass(real newMass) 
 	{
-		inverseMass = static_cast<real>(1.0) / newMass;
+		mInverseMass = static_cast<real>(1.0) / newMass;
 	}
 
-	void Particle::setInverseMass(real newInverseMass)
+	void Particle::SetInverseMass(real newInverseMass)
 	{
-		inverseMass = newInverseMass;
+		mInverseMass = newInverseMass;
 	}
 
-	real Particle::getInverseMass() const
+	real Particle::GetInverseMass() const
 	{
-		return inverseMass;
+		return mInverseMass;
 	}
 
-	void Particle::integrate(real duration)
+	void Particle::Integrate(real duration)
 	{
-		if (inverseMass <= 0.0) return;
+		if (mInverseMass <= 0.0) return;
 
 		if (duration <= 0.0)
 		{
 			throw invalid_argument{ "duration can't be less or equal to zero" };
 		}
 		
-		position.addScaledVector(velocity, duration);
+		mPosition.AddScaledVector(mVelocity, duration);
 		
-		Vector3 resultingAcceleration = acceleration;
+		Vector3 resultingAcceleration = mAcceleration;
 
-		velocity.addScaledVector(resultingAcceleration, duration);
-		velocity *= real_pow(damping, duration);
+		mVelocity.AddScaledVector(resultingAcceleration, duration);
+		mVelocity *= RealPow(mDamping, duration);
 	}
 
-	real Particle::getKineticEnergy() const
+	real Particle::GetKineticEnergy() const
 	{
-		return getMass() / 2 * velocity.getSquaredMagnitude();
+		return GetMass() / 2 * mVelocity.GetSquaredMagnitude();
 	}
 }

@@ -8,7 +8,7 @@
 class Window 
 {
 private:
-	float deltaTime;
+	float mDeltaTime;
 
 public:
 	Window(int width, int height, std::string_view title);
@@ -24,7 +24,7 @@ protected:
 	virtual void Update() {}
 	virtual void Draw() {}
 
-	GLFWwindow* window;
+	GLFWwindow* mWindow;
 };
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);

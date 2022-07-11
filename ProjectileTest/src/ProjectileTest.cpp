@@ -71,35 +71,35 @@ void ProcessInput(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !pressed)
 	{
 		Nebula::Core::Particle p;
-		p.setPosition(0.0f, 2.0f, -5.0f);
+		p.SetPosition(0.0f, 2.0f, -5.0f);
 		switch (currentWeapon)
 		{
 		case WeaponType::Pistol:
-			p.setMass(2.0f);
-			p.setVelocity(0.0f, 0.0f, -35.0f);
-			p.setAcceleration(0.0f, -1.0f, 0.0f);
-			p.setDamping(0.99f);
+			p.SetMass(2.0f);
+			p.SetVelocity(0.0f, 0.0f, -35.0f);
+			p.SetAcceleration(0.0f, -1.0f, 0.0f);
+			p.SetDamping(0.99f);
 			break;
 
 		case WeaponType::Artillery:
-			p.setMass(200.0f);
-			p.setVelocity(0.0f, 30.0f, -40.0f);
-			p.setAcceleration(0.0f, -20.0f, 0.0f);
-			p.setDamping(0.99f);
+			p.SetMass(200.0f);
+			p.SetVelocity(0.0f, 30.0f, -40.0f);
+			p.SetAcceleration(0.0f, -20.0f, 0.0f);
+			p.SetDamping(0.99f);
 			break;
 
 		case WeaponType::Fireball:
-			p.setMass(1.0f);
-			p.setVelocity(0.0f, 0.0f, -10.0f);
-			p.setAcceleration(0.0f, 0.6f, 0.0f);
-			p.setDamping(0.99f);
+			p.SetMass(1.0f);
+			p.SetVelocity(0.0f, 0.0f, -10.0f);
+			p.SetAcceleration(0.0f, 0.6f, 0.0f);
+			p.SetDamping(0.99f);
 			break;
 
 		case WeaponType::Laser:
-			p.setMass(0.1f);
-			p.setVelocity(0.0f, 0.0f, -100.0f);
-			p.setAcceleration(0.0f, 0.0f, 0.0f);
-			p.setDamping(0.99f);
+			p.SetMass(0.1f);
+			p.SetVelocity(0.0f, 0.0f, -100.0f);
+			p.SetAcceleration(0.0f, 0.0f, 0.0f);
+			p.SetDamping(0.99f);
 			break;
 		}
 
@@ -201,7 +201,7 @@ int main()
 	bullet.scale = { 0.25f, 0.25f, 0.25f };
 	bullet.color = { 0.0f, 1.0f, 0.0f };
 
-	mainCamera.Position = { 25.0f, 17.0f, 0.0f };
+	mainCamera.position = { 25.0f, 17.0f, 0.0f };
 
 	glfwSwapInterval(0);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -236,8 +236,8 @@ int main()
 
 		for (auto& p : projectiles)
 		{
-			p.integrate(static_cast<Nebula::real>(deltaTime));
-			bullet.position = p.getPosition();
+			p.Integrate(static_cast<Nebula::real>(deltaTime));
+			bullet.position = p.GetPosition();
 			bullet.Draw();
 		}
 

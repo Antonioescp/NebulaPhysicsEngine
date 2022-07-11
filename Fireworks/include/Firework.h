@@ -84,41 +84,43 @@ public:
 	)
 		: mPayload{ payload }
 		, mAge{ age }
+		, mBaseFuseTime{ mAge }
 		, mChildrenRule{ childrenRule }
-		, shouldExplode{ false }
-		, hasExploded{ false }
+		, mShouldExplode{ false }
+		, mHasExploded{ false }
 	{}
 
 	// Applies the rule to the firework itself 
 	Firework(const Rule& fireworkRule)
 		: mPayload{ fireworkRule.payloadCount }
 		, mAge { GetRandomRange(fireworkRule.minAge, fireworkRule.maxAge) }
+		, mBaseFuseTime{ mAge }
 		, mChildrenRule{ fireworkRule.childrenRule }
-		, shouldExplode{ false }
-		, hasExploded{ false }
+		, mShouldExplode{ false }
+		, mHasExploded{ false }
 	{
-		setDamping(GetRandomRange(fireworkRule.minDamping, fireworkRule.maxDamping));
+		SetDamping(GetRandomRange(fireworkRule.minDamping, fireworkRule.maxDamping));
 
 		Nebula::real randomX{ GetRandomRange(0.0f, std::numbers::pi * 2.0f) };
 		Nebula::real randomY{ GetRandomRange(0.0f, std::numbers::pi * 2.0f) };
 		Nebula::Core::Vector3 randomVelocity{ cos(randomX), sin(randomY), 0.0f };
-		randomVelocity.normalize();
+		randomVelocity.Normalize();
 		randomVelocity *= GetRandomRange(fireworkRule.minSpeed, fireworkRule.maxSpeed);
 
-		setVelocity(randomVelocity);
+		SetVelocity(randomVelocity);
 	}
 
 	// Updates physics and firework behaviour
 	void Update(Nebula::real duration)
 	{
-		integrate(duration);
+		Integrate(duration);
 
 		if (mAge > 0.0f)
 		{
 			mAge -= duration;
-			if (mAge <= 0.0f && !shouldExplode)
+			if (mAge <= 0.0f && !mShouldExplode)
 			{
-				shouldExplode = true;
+				mShouldExplode = true;
 			}
 		}
 	}
@@ -130,7 +132,7 @@ public:
 		using namespace Nebula;
 		using namespace Nebula::Core;
 
-		hasExploded = true;
+		mHasExploded = true;
 		if (mPayload <= 0) return {};
 		if (!mChildrenRule) return {};
 
@@ -139,9 +141,9 @@ public:
 		for (int i = 0; i < mPayload; i++)
 		{
 			Firework child{*mChildrenRule};
-			child.setPosition(getPosition());
-			child.setMass(1.0f);
-			child.setAcceleration(Nebula::Core::Vector3::Gravity * 10.0f);
+			child.SetPosition(GetPosition());
+			child.SetMass(1.0f);
+			child.SetAcceleration(Nebula::Core::Vector3::Gravity * 10.0f);
 			children.push_back(child);
 		}
 
@@ -150,12 +152,22 @@ public:
 
 	bool ShouldExplode() const
 	{
-		return shouldExplode;
+		return mShouldExplode;
 	}
 
 	bool HasExploded() const
 	{
-		return hasExploded;
+		return mHasExploded;
+	}
+
+	Nebula::real GetAge() const
+	{
+		return mAge;
+	}
+
+	Nebula::real GetBaseAge() const
+	{
+		return mBaseFuseTime;
 	}
 	
 private:
@@ -165,13 +177,14 @@ private:
 
 	// Time before explosion
 	Nebula::real mAge;
+	Nebula::real mBaseFuseTime;
 
 	// Rule to apply to the firework children if any
 	Rule* mChildrenRule;
 
 	// True if fuse time is reached
-	bool shouldExplode;
+	bool mShouldExplode;
 
 	// Keeps track of detonation status
-	bool hasExploded;
+	bool mHasExploded;
 };

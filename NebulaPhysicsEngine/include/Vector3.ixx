@@ -17,19 +17,19 @@ namespace Nebula::Core
 		real y;
 		real z;
 
-		static void makeOrthonormalBasis(Vector3& a, Vector3& b, Vector3& c);
+		static void MakeOrthonormalBasis(Vector3& a, Vector3& b, Vector3& c);
 
 		Vector3();
 		Vector3(const real x, const real y, const real z);
 		Vector3(const Vector3& source);
 
-		void invert();
-		real getMagnitude() const;
-		real getSquaredMagnitude() const;
-		Vector3& normalize();
-		Vector3 getNormalized() const;
+		void Invert();
+		real GetMagnitude() const;
+		real GetSquaredMagnitude() const;
+		Vector3& Normalize();
+		Vector3 GetNormalized() const;
 
-		void addScaledVector(const Vector3& rhs, real scale);
+		void AddScaledVector(const Vector3& rhs, real scale);
 
 		Vector3 operator+(const Vector3& rhs) const;
 		const Vector3& operator+=(const Vector3& rhs);
@@ -43,15 +43,15 @@ namespace Nebula::Core
 		Vector3 operator/(const real scalar) const;
 		const Vector3& operator/=(const real scalar);
 
-		Vector3 getComponentProduct(const Vector3& rhs) const;
-		const Vector3& assignComponentProduct(const Vector3& rhs);
+		Vector3 GetComponentProduct(const Vector3& rhs) const;
+		const Vector3& AssignComponentProduct(const Vector3& rhs);
 
 		real operator*(const Vector3& rhs) const;
-		real getDotProduct(const Vector3& rhs) const;
+		real GetDotProduct(const Vector3& rhs) const;
 
 		Vector3 operator%(const Vector3& rhs) const;
-		Vector3 getCrossProduct(const Vector3& rhs) const;
-		const Vector3& assignCrossProduct(const Vector3& rhs);
+		Vector3 GetCrossProduct(const Vector3& rhs) const;
+		const Vector3& AssignCrossProduct(const Vector3& rhs);
 	};
 
 	export Vector3 operator*(const real scalar, const Vector3& vector);

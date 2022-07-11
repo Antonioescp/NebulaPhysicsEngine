@@ -11,36 +11,36 @@ namespace Nebula::Core
 {
 	export class Particle {
 	protected:
-		Vector3 position{};
-		Vector3 velocity{};
-		Vector3 acceleration{};
-		real damping{};
-		real inverseMass{};
+		Vector3 mPosition{};
+		Vector3 mVelocity{};
+		Vector3 mAcceleration{};
+		real mDamping{};
+		real mInverseMass{};
 
 	public:
 
-		void setPosition(real x, real y, real z);
-		void setPosition(const Vector3& newPosition);
-		Vector3 getPosition() const;
+		void SetPosition(real x, real y, real z);
+		void SetPosition(const Vector3& newPosition);
+		Vector3 GetPosition() const;
 
-		void setVelocity(real x, real y, real z);
-		void setVelocity(const Vector3& newPosition);
-		Vector3 getVelocity() const;
+		void SetVelocity(real x, real y, real z);
+		void SetVelocity(const Vector3& newPosition);
+		Vector3 GetVelocity() const;
 
-		void setAcceleration(real x, real y, real z);
-		void setAcceleration(const Vector3& newPosition);
-		Vector3 getAcceleration() const;
+		void SetAcceleration(real x, real y, real z);
+		void SetAcceleration(const Vector3& newPosition);
+		Vector3 GetAcceleration() const;
 
-		void setDamping(real newDamping);
-		real getDamping() const;
+		void SetDamping(real newDamping);
+		real GetDamping() const;
 
-		void setMass(real newMass);
-		real getMass() const;
-		void setInverseMass(real newInverseMass);
-		real getInverseMass() const;
+		void SetMass(real newMass);
+		real GetMass() const;
+		void SetInverseMass(real newInverseMass);
+		real GetInverseMass() const;
 
-		void integrate(real duration);
+		void Integrate(real duration);
 
-		real getKineticEnergy() const;
+		real GetKineticEnergy() const;
 	};
 }

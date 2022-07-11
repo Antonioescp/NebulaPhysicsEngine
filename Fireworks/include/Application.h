@@ -16,9 +16,9 @@ import Core;
 class Application : public Window
 {
 private:
-	Mesh cube;
-	MeshRenderer renderer;
-	Camera mainCamera;
+	Mesh mCube;
+	MeshRenderer mRenderer;
+	Camera mMainCamera;
 	std::vector<Firework::Rule> mFireworkRules{};
 	std::vector<Firework> mFireworks{};
 	std::vector<bool> mKeyPadPressed{};
@@ -27,13 +27,13 @@ private:
 	{
 		for (int i = 0; i < mFireworkRules.size(); i++)
 		{
-			if (glfwGetKey(window, GLFW_KEY_KP_0 + i) == GLFW_PRESS && !mKeyPadPressed[i])
+			if (glfwGetKey(mWindow, GLFW_KEY_KP_0 + i) == GLFW_PRESS && !mKeyPadPressed[i])
 			{
 				ShootFirework(mFireworkRules[i]);
 				mKeyPadPressed[i] = true;
 			}
 
-			if (glfwGetKey(window, GLFW_KEY_KP_0 + i) == GLFW_RELEASE)
+			if (glfwGetKey(mWindow, GLFW_KEY_KP_0 + i) == GLFW_RELEASE)
 			{
 				mKeyPadPressed[i] = false;
 			}
@@ -48,33 +48,18 @@ private:
 		// Calculating a velocity around 45 and 120 degrees
 		Nebula::real randomX = GetRandomRange(std::numbers::pi / 3.5f, std::numbers::pi / 1.5f);
 		Nebula::Core::Vector3 startVelocity{ cos(randomX), 1.0f, 0.0f};
-		startVelocity.normalize();
+		startVelocity.Normalize();
 		startVelocity *= 125.0f;
 
-		newFirework.setVelocity(startVelocity);
-		newFirework.setPosition(0.0f, 1.0f, 0.0f);
-		newFirework.setAcceleration(Nebula::Core::Vector3::Gravity * 10.0f);
-		newFirework.setMass(1.0f);
-		newFirework.setDamping(0.99f);
+		newFirework.SetVelocity(startVelocity);
+		newFirework.SetPosition(0.0f, 1.0f, 0.0f);
+		newFirework.SetAcceleration(Nebula::Core::Vector3::Gravity * 10.0f);
+		newFirework.SetMass(1.0f);
+		newFirework.SetDamping(0.99f);
 
 		mFireworks.push_back(newFirework);
 	}
 
-public:
-	Application(int width, int height, std::string_view title)
-		: Window(width, height, title)
-		, cube{}
-		, renderer{
-				cube,
-				R"(E:\CodePlayground\C++\NebulaPhysicsEngine\Shaders\common.vert)",
-				R"(E:\CodePlayground\C++\NebulaPhysicsEngine\Shaders\common.frag)"
-			}
-		, mainCamera{}
-	{
-
-	}
-
-protected:
 	void CreateFireworkTypes()
 	{
 		// Very fast explosion with a lot of particles
@@ -126,7 +111,7 @@ protected:
 
 		// Fast Explosion With fast child explosion
 		mFireworkRules.emplace_back(
-			Firework::Rule {
+			Firework::Rule{
 				25,
 				1.00f, 1.25f,
 				0.00f, 0.00f,
@@ -136,7 +121,7 @@ protected:
 					0.25f, 0.50f,
 					25.0f, 50.0f,
 					0.05f, 0.10f,
-					Firework::Rule{
+					Firework::Rule {
 						0,
 						2.00f, 2.00f,
 						05.0f, 15.0f,
@@ -149,7 +134,7 @@ protected:
 
 		// Continous Explosion
 		mFireworkRules.emplace_back(
-			Firework::Rule{
+			Firework::Rule {
 				2,
 				0.75f, 1.00f,
 				0.0f, 0.0f,
@@ -166,9 +151,9 @@ protected:
 						0.05f, 0.10f,
 						Firework::Rule {
 							4,
-							0.10f, 0.15f,
+							1.0f, 2.0f,
 							5.0f, 20.0f,
-							0.05f, 0.10f,
+							0.01f, 0.05f,
 							{}
 						}
 					}
@@ -177,13 +162,26 @@ protected:
 		);
 	}
 
-	void Setup()
+public:
+	Application(int width, int height, std::string_view title)
+		: Window(width, height, title)
+		, mCube{}
+		, mRenderer{
+				mCube,
+				R"(E:\CodePlayground\C++\NebulaPhysicsEngine\Shaders\common.vert)",
+				R"(E:\CodePlayground\C++\NebulaPhysicsEngine\Shaders\common.frag)"
+			}
+		, mMainCamera{}
+	{}
+
+protected:
+	void Setup() override
 	{
 		CreateFireworkTypes();
 
 		mKeyPadPressed.resize(10, false);
 
-		cube.AddVertices({
+		mCube.AddVertices({
 			-0.5f, -0.5f, -0.5f,
 			 0.5f, -0.5f, -0.5f,
 			 0.5f,  0.5f, -0.5f,
@@ -227,17 +225,17 @@ protected:
 			-0.5f,  0.5f, -0.5f,
 		});
 
-		renderer.SetMesh(cube);
-		renderer.color = { 1.0f, 1.0f, 1.0f };
-		renderer.position = { 0.0f, 0.0f, 0.0f };
+		mRenderer.SetMesh(mCube);
+		mRenderer.color = { 1.0f, 1.0f, 1.0f };
+		mRenderer.position = { 0.0f, 0.0f, 0.0f };
 
-		mainCamera.Position = { 0.0f, 45.0f, 100.0f };
-		renderer.view = mainCamera.GetViewMatrix();
-		renderer.projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.01f, 100.0f);
-		renderer.scale = { 1.0f, 1.0f, 1.0f };
+		mMainCamera.position = { 0.0f, 45.0f, 100.0f };
+		mRenderer.view = mMainCamera.GetViewMatrix();
+		mRenderer.projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.01f, 100.0f);
+		mRenderer.scale = { 1.0f, 1.0f, 1.0f };
 	}
 	
-	void Update()
+	void Update() override
 	{
 		HandleInput();
 
@@ -257,17 +255,20 @@ protected:
 		std::erase_if(mFireworks, [](const Firework& element) -> bool { return element.HasExploded(); });
 	}
 
-	void Draw()
+	void Draw() override
 	{
 		for (auto& firework : mFireworks)
 		{
-			renderer.position = firework.getPosition();
-			renderer.color = { 
+			mRenderer.position = firework.GetPosition();
+			mRenderer.color = { 
 				GetRandomRange(0.1f, 1.0f), 
 				GetRandomRange(0.1f, 1.0f), 
 				GetRandomRange(0.1f, 1.0f) 
 			};
-			renderer.Draw();
+
+			Nebula::real currentScale{ firework.GetAge() / firework.GetBaseAge() };
+			mRenderer.scale = Nebula::Core::Vector3{ 1.0f, 1.0f, 1.0f } * currentScale;
+			mRenderer.Draw();
 		}
 	}
 };
