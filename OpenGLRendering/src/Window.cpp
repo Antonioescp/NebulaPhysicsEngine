@@ -1,6 +1,7 @@
 #include <Window.h>
 
 Window::Window(int width, int height, std::string_view title)
+	: deltaTime{}
 {
 	glfwInit();
 
@@ -10,7 +11,7 @@ Window::Window(int width, int height, std::string_view title)
 	window = glfwCreateWindow(width, height, title.data(), nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, width, height);
 
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
 }
@@ -24,9 +25,17 @@ Window::~Window()
 void Window::RunLoop()
 {
 	Setup();
+
 	glEnable(GL_DEPTH_TEST);
+	glfwSwapInterval(0);
+	
+	float previousFrame = glfwGetTime();
 	while (!glfwWindowShouldClose(window))
 	{
+		float currentTime = glfwGetTime();
+		deltaTime = currentTime - previousFrame;
+		previousFrame = currentTime;
+
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -36,6 +45,10 @@ void Window::RunLoop()
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
+}
+
+float Window::GetDeltaTime() const {
+	return deltaTime;
 }
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
