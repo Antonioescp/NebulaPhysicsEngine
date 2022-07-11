@@ -11,6 +11,8 @@ namespace Nebula::Core
 	export class Vector3
 	{
 	public:
+		static Vector3 Gravity;
+
 		real x;
 		real y;
 		real z;
