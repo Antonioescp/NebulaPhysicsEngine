@@ -11,7 +11,9 @@ namespace Nebula::Core
 	export class Vector3
 	{
 	public:
-		static Vector3 Gravity;
+		const static Vector3 Gravity;
+		const static Vector3 Right;
+		const static Vector3 Up;
 
 		real x;
 		real y;
@@ -52,6 +54,8 @@ namespace Nebula::Core
 		Vector3 operator%(const Vector3& rhs) const;
 		Vector3 GetCrossProduct(const Vector3& rhs) const;
 		const Vector3& AssignCrossProduct(const Vector3& rhs);
+
+		Vector3 operator-() const;
 	};
 
 	export Vector3 operator*(const real scalar, const Vector3& vector);

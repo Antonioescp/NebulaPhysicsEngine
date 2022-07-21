@@ -168,6 +168,11 @@ namespace Nebula::Core
 		return *this;
 	}
 
+	Vector3 Vector3::operator-() const
+	{
+		return { -x, -y, -z };
+	}
+
 	Vector3 operator*(const real scalar, const Vector3& vector) {
 		return vector * scalar;
 	}
@@ -177,5 +182,7 @@ namespace Nebula::Core
 		return outputstream;
 	}
 
-	Vector3 Vector3::Gravity{ 0.0f, -9.81f, 0.0f };
+	const Vector3 Vector3::Gravity{ 0.0f, -9.81f, 0.0f };
+	const Vector3 Vector3::Right{ 1.0f, 0.0f, 0.0f };
+	const Vector3 Vector3::Up{ 0.0f, 1.0f, 0.0f };
 }
