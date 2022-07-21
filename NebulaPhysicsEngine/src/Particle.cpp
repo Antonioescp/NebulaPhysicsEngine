@@ -60,7 +60,7 @@ namespace Nebula::Core
 
 	Vector3 Particle::GetAcceleration() const
 	{
-		return mAcceleration;
+		return mAcceleration + mForceAccumulator * mInverseMass;
 	}
 
 	void Particle::SetDamping(real newDamping)
