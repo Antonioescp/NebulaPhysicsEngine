@@ -39,6 +39,7 @@ void Window::RunLoop()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		HandleInput();
 		Update();
 		Draw();
 
@@ -49,6 +50,22 @@ void Window::RunLoop()
 
 float Window::GetDeltaTime() const {
 	return mDeltaTime;
+}
+
+void Window::HandleInput()
+{
+}
+
+void Window::Setup()
+{
+}
+
+void Window::Update()
+{
+}
+
+void Window::Draw()
+{
 }
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)

@@ -20,9 +20,10 @@ public:
 	float GetDeltaTime() const;
 
 protected:
-	virtual void Setup() {}
-	virtual void Update() {}
-	virtual void Draw() {}
+	virtual void HandleInput();
+	virtual void Setup();
+	virtual void Update();
+	virtual void Draw();
 
 	GLFWwindow* mWindow;
 };
