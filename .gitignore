@@ -12,6 +12,8 @@
 
 # Ignore exercises
 [Ee]xercise[0-9]-[0-9]/
+Excercise5-4
+Testing
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

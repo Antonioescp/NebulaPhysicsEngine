@@ -163,6 +163,7 @@
     <ClCompile Include="src\ParticleDrag.cpp" />
     <ClCompile Include="src\ParticleForceRegistry.cpp" />
     <ClCompile Include="src\ParticleGravity.cpp" />
+    <ClCompile Include="src\ParticleSpring.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="include\ParticleDrag.h" />
     <ClInclude Include="include\ParticleForceRegistry.h" />
     <ClInclude Include="include\ParticleGravity.h" />
+    <ClInclude Include="include\ParticleSpring.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
