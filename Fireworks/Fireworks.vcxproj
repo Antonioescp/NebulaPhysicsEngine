@@ -88,8 +88,8 @@
     <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)intermidiate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <LibraryPath>E:\CodePlayground\C++\NebulaPhysicsEngine\External\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>E:\CodePlayground\C++\NebulaPhysicsEngine\External\include;E:\CodePlayground\C++\NebulaPhysicsEngine\OpenGLRendering\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\External\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\External\include;$(SolutionDir)\OpenGLRendering\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
@@ -136,7 +136,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;SHADER_DIR=R"($(SolutionDir)Shaders\)";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <EnableModules>true</EnableModules>

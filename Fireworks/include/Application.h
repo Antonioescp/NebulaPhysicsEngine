@@ -11,6 +11,8 @@
 #include <vector>
 #include <numbers>
 
+#include <format>
+
 import Core;
 
 class Application : public Window
@@ -180,8 +182,8 @@ public:
 		, mCube{}
 		, mRenderer{
 				mCube,
-				R"(E:\CodePlayground\C++\NebulaPhysicsEngine\Shaders\common.vert)",
-				R"(E:\CodePlayground\C++\NebulaPhysicsEngine\Shaders\common.frag)"
+				SHADER_DIR R"(common.vert)",
+				SHADER_DIR R"(common.frag)",
 			}
 		, mMainCamera{}
 	{}

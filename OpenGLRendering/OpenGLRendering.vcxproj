@@ -83,7 +83,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)intermidiate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>E:\CodePlayground\C++\NebulaPhysicsEngine\OpenGLRendering\include;E:\CodePlayground\C++\NebulaPhysicsEngine\External\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\External\include;$(ProjectDir)\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>

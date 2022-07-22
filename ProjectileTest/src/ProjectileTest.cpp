@@ -188,8 +188,8 @@ int main()
 		-0.5f,  0.5f, -0.5f,
 	});
 
-	std::string_view commonVertexSource{ R"(E:\CodePlayground\C++\NebulaPhysicsEngine\ProjectileTest\src\common.vert)" };
-	std::string_view commonFragmentSource{ R"(E:\CodePlayground\C++\NebulaPhysicsEngine\ProjectileTest\src\common.frag)" };
+	std::string_view commonVertexSource{ SHADER_DIR "common.vert" };
+	std::string_view commonFragmentSource{ SHADER_DIR "common.frag" };
 
 	MeshRenderer floor{ cube, std::string{commonVertexSource}, std::string{commonFragmentSource} };
 	floor.position = { 0.0f, 0.0f, -5.0f };
