@@ -1,22 +1,19 @@
 #pragma once
 
+#include <vector>
+#include <iostream>
+
 #include <Window.h>
 #include <Mesh.h>
 #include <MeshRenderer.h>
 #include <Camera.h>
 #include <ParticleForceRegistry.h>
 #include <ParticleSpring.h>
-#include <ParticleAnchoredSpring.h>
 #include <ParticleGravity.h>
-#include <ParticleBungee.h>
-#include <ParticleBuoyancy.h>
-
-#include <vector>
-
-import Core;
+#include <ParticleDrag.h>
 
 using namespace Nebula;
-using namespace Nebula::Core;
+using namespace ForceGenerators;
 
 glm::mat4 gProjection{ 1.0f };
 
@@ -40,81 +37,36 @@ private:
 	Camera mMainCamera{};
 
 	ParticleForceRegistry mRegistry{};
-	std::vector< std::pair<Particle*, IParticleForceGenerator*> > mParticleLinks{};
 	std::vector< std::pair<Particle*, glm::vec3> > mDrawableParticles{};
 
-	ParticleGravity mEarthGravity{ {0.0f, -9.81f, 0.0f} };
+	ParticleGravity mEarthGravity{ {0.0f, -0.1f, 0.0f} };
+	Vector3 mParticleScale = { 1.0f, 1.0f, 1.0f };
 
-	// Common spring
-	Particle mCommonSpringStart{};
-	Particle mCommonSpringEnd{};
-	ParticleSpring mCommonSpring{ mCommonSpringStart, 100.0f, 9.0f };
-	
-	// Anchored spring
-	Vector3 mAnchor{ -30.0f, 10.0f, 0.0f };
-	Particle mAnchoredParticle{};
-	ParticleAnchoredSpring mAnchoredSpring{ mAnchor, 100.0f, 9.0f };
-
-	// Bungee spring
-	Particle mAnchorBungeeParticle{};
-	Particle mBungeeParticle{};
-	ParticleBungee mBungeeSpring{ mAnchorBungeeParticle, 100.0f, 20.0f };
-
-	// Buoyant particle
-	Particle mBuoyantParticle{};
-	ParticleBuoyancy mBuoyancyForce{ -10.0f, 0.1f, 0.0f, 500.0f };
+	Particle mAnchorParticle{};
+	std::vector<Particle> mRope{3};
+	std::vector<ParticleSpring> mSprings{};
 
 	void CreateParticles()
 	{
-		// common spring
-		mCommonSpringStart.SetMass(1.0f);
-		mCommonSpringStart.SetDamping(0.99f);
-		mCommonSpringStart.SetPosition(-40.0f, 10.0f, 0.0f);
-
-		mCommonSpringEnd.SetMass(1.0f);
-		mCommonSpringEnd.SetDamping(0.99f);
-		mCommonSpringEnd.SetPosition(-40.0f, 0.0f, 0.0f);
-
-		mDrawableParticles.push_back({ &mCommonSpringStart, { 1.0f, 0.64f, 0.0f } });
-		mDrawableParticles.push_back({ &mCommonSpringEnd, {1.0f, 1.0f, 1.0f} });
-
-		mParticleLinks.push_back({ &mCommonSpringEnd, &mCommonSpring });
-
-		// Anchored spring
-		mAnchoredParticle.SetMass(1.0f);
-		mAnchoredParticle.SetDamping(0.99f);
-		mAnchoredParticle.SetPosition(-30.0f, 0.0f, 0.0f);
-
-		mDrawableParticles.push_back({ &mAnchoredParticle, {1.0f, 1.0f, 1.0f} });
-		mParticleLinks.push_back({ &mAnchoredParticle, &mAnchoredSpring });
-
-		// Bungee spring
-		mAnchorBungeeParticle.SetMass(1.0f);
-		mAnchorBungeeParticle.SetDamping(0.99f);
-		mAnchorBungeeParticle.SetPosition(-20.0f, 10.0f, 0.0f);
-
-		mBungeeParticle.SetMass(1.0f);
-		mBungeeParticle.SetDamping(0.99f);
-		mBungeeParticle.SetPosition(-16.0f, 15.0f, 0.0f);
-
-		mDrawableParticles.push_back({ &mAnchorBungeeParticle, { 1.0f, 0.63f, 0.0f } });
-		mDrawableParticles.push_back({ &mBungeeParticle, {1.0f, 1.0f, 1.0f} });
-
-		mParticleLinks.push_back({ &mBungeeParticle, &mBungeeSpring });
-		mParticleLinks.push_back({ &mBungeeParticle, &mEarthGravity });
-
-		// Buoyancy
-		mBuoyantParticle.SetMass(1.0f);
-		mBuoyantParticle.SetDamping(0.99f);
-		mBuoyantParticle.SetPosition(0.0f, 10.0f, 0.0f);
-
-		mDrawableParticles.push_back({ &mBuoyantParticle, {0.678f, 0.847f, 0.902f} });
-		mParticleLinks.push_back({ &mBuoyantParticle, &mBuoyancyForce });
-		mParticleLinks.push_back({ &mBuoyantParticle, &mEarthGravity });
-
-		for (auto& [particle, forceGenerator] : mParticleLinks)
+		for (int i{}; i < mRope.size(); i++)
 		{
-			mRegistry.Add(*particle, *forceGenerator);
+			mDrawableParticles.push_back({ &mRope[i] , { 1.0f, 0.64f, 0.0f }});
+			mRope[i].SetPosition(0.0f, 2.0f - 0.5f * i, 0.0f);
+
+			if (i > 0) {
+				mRegistry.Add(mRope[i], mEarthGravity);
+			}
+
+			if (i < mRope.size() - 1)
+			{
+				mSprings.push_back({ mRope[i], 1.0f, 1.0f });
+			}
+		}
+
+		for (int i{ 0 }; i < mSprings.size(); i++)
+		{
+			mRegistry.Add(mRope[i + 1], mSprings[i]);
+			if (i > 0) mRegistry.Add(mRope[i], mSprings[i - 1]);
 		}
 	}
 
@@ -130,6 +82,7 @@ public:
 		glfwGetWindowSize(mWindow, &width, &height);
 		FramebufferCallback(mWindow, width, height);
 		glfwSetFramebufferSizeCallback(mWindow, FramebufferCallback);
+		glClearColor(192 / 255.0f, 57 / 255.0f, 43 / 255.0f, 1.0f);
 
 		CreateParticles();
 
@@ -178,18 +131,25 @@ public:
 		});
 
 		mRenderer.SetMesh(mCube);
-		mRenderer.scale = { 1.0f, 1.0f, 1.0f };
 		mRenderer.color = { 1.0f, 1.0f, 1.0f };
-		mRenderer.position = { 0.0f, 0.0f, 0.0f };
+		mParticleScale *= 0.25f;
 		mRenderer.projection = gProjection;
 
-		mMainCamera.position = { 0.0f, 0.0f, 100.0f };
+		mMainCamera.position = { 0.0f, 0.0f, 10.0f };
 		mRenderer.view = mMainCamera.GetViewMatrix();
 	}
 
 	void HandleInput() override
 	{
+		if (glfwGetKey(mWindow, GLFW_KEY_W) == GLFW_PRESS)
+		{
+			mParticleScale += Vector3{ 1.0f, 1.0f, 1.0f } * GetDeltaTime();
+		}
 
+		if (glfwGetKey(mWindow, GLFW_KEY_S) == GLFW_PRESS)
+		{
+			mParticleScale -= Vector3{ 1.0f, 1.0f, 1.0f } * GetDeltaTime();
+		}
 	}
 
 	void Update() override
@@ -208,6 +168,7 @@ public:
 
 		for (const auto& [particle, color] : mDrawableParticles)
 		{
+			mRenderer.scale = mParticleScale;
 			mRenderer.position = particle->GetPosition();
 			mRenderer.color = color;
 			mRenderer.Draw();

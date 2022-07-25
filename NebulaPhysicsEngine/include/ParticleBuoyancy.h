@@ -1,12 +1,12 @@
 #pragma once
 
-#include <IParticleForceGenerator.h>;
+#include <IParticleForceGenerator.h>
 
 namespace Nebula
 {
-	inline namespace ForceGenerators
+	namespace ForceGenerators
 	{
-		class ParticleBuoyancy : public Core::IParticleForceGenerator
+		class ParticleBuoyancy : public IParticleForceGenerator
 		{
 		private:
 
@@ -24,7 +24,7 @@ namespace Nebula
 				real liquidDensity
 			);
 
-			void UpdateForce(Core::Particle& particle, real duration) override;
+			void UpdateForce(Particle& particle, real duration) override;
 
 		};
 	}

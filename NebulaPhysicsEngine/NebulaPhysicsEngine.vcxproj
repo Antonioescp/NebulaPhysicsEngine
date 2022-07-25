@@ -155,10 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\Core.ixx" />
-    <ClCompile Include="include\Particle.ixx" />
-    <ClCompile Include="include\Presicion.ixx" />
-    <ClCompile Include="include\Vector3.ixx" />
+    <ClCompile Include="src\ParticleFakeSpring.cpp" />
     <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\ParticleAnchoredSpring.cpp" />
     <ClCompile Include="src\ParticleBungee.cpp" />
@@ -171,13 +168,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\IParticleForceGenerator.h" />
+    <ClInclude Include="include\Particle.h" />
     <ClInclude Include="include\ParticleAnchoredSpring.h" />
     <ClInclude Include="include\ParticleBungee.h" />
     <ClInclude Include="include\ParticleBuoyancy.h" />
     <ClInclude Include="include\ParticleDrag.h" />
+    <ClInclude Include="include\ParticleFakeSpring.h" />
     <ClInclude Include="include\ParticleForceRegistry.h" />
     <ClInclude Include="include\ParticleGravity.h" />
     <ClInclude Include="include\ParticleSpring.h" />
+    <ClInclude Include="include\Precision.h" />
+    <ClInclude Include="include\Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

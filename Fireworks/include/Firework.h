@@ -4,8 +4,7 @@
 #include <vector>
 #include "Utils.h"
 #include <numbers>
-
-import Core;
+#include <Particle.h>
 
 // A firework that can fly and explode into different fireworks
 class Firework : public Nebula::Core::Particle
@@ -150,7 +149,7 @@ public:
 			Firework child{*mChildrenRule};
 			child.SetPosition(GetPosition());
 			child.SetMass(1.0f);
-			child.SetAcceleration(Nebula::Core::Vector3::Gravity * 10.0f);
+			child.SetAcceleration({0.0f, -100.0f, 0.f});
 			children.push_back(child);
 		}
 

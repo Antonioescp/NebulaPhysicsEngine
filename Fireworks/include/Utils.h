@@ -1,8 +1,7 @@
 #pragma once
 
 #include <random>
-
-import Core;
+#include <Vector3.h>
 
 std::random_device randomDevice{};
 std::default_random_engine randomEngine{ randomDevice() };

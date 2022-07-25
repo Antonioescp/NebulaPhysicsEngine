@@ -1,23 +1,27 @@
 #include <ParticleDrag.h>
 
-namespace Nebula::Core
+namespace Nebula
 {
-	ParticleDrag::ParticleDrag(real k1, real k2)
-		: mK1{ k1 }
-		, mK2{ k2 }
+	namespace ForceGenerators
 	{
-	}
 
-	void ParticleDrag::UpdateForce(Particle& particle, real duration)
-	{
-		Vector3 force{ particle.GetVelocity() };
+		ParticleDrag::ParticleDrag(real k1, real k2)
+			: mK1{ k1 }
+			, mK2{ k2 }
+		{}
 
-		real dragCoefficient = force.GetMagnitude();
-		dragCoefficient = mK1 * dragCoefficient + mK2 * dragCoefficient * dragCoefficient;
+		void ParticleDrag::UpdateForce(Particle& particle, real duration)
+		{
+			Vector3 force{ particle.GetVelocity() };
 
-		force.Normalize();
-		force *= -dragCoefficient;
+			real dragCoefficient = force.GetMagnitude();
+			dragCoefficient = mK1 * dragCoefficient + mK2 * dragCoefficient * dragCoefficient;
 
-		particle.AddForce(force);
+			force.Normalize();
+			force *= -dragCoefficient;
+
+			particle.AddForce(force);
+		}
+
 	}
 }

@@ -2,10 +2,10 @@
 
 namespace Nebula
 {
-	inline namespace ForceGenerators
+	namespace ForceGenerators
 	{
 		ParticleAnchoredSpring::ParticleAnchoredSpring(
-			const Core::Vector3& anchor,
+			const Vector3& anchor,
 			real stiffness,
 			real restLength
 		)
@@ -14,13 +14,13 @@ namespace Nebula
 			, mSpringRestLenght{ restLength }
 		{}
 
-		void ParticleAnchoredSpring::UpdateForce(Core::Particle& particle, Nebula::real duration)
+		void ParticleAnchoredSpring::UpdateForce(Particle& particle, real duration)
 		{
-			Core::Vector3 direction{ particle.GetPosition() - mAnchor };
+			Vector3 direction{ particle.GetPosition() - mAnchor };
 			real distance{ direction.GetMagnitude() };
 			direction.Normalize();
 
-			Core::Vector3 force{ -mSpringStiffness * (distance - mSpringRestLenght) * direction };
+			Vector3 force{ -mSpringStiffness * (distance - mSpringRestLenght) * direction };
 
 			particle.AddForce(force);
 		}

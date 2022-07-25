@@ -21,18 +21,6 @@
     <ClCompile Include="src\Vector3.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="include\Core.ixx">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="include\Particle.ixx">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="include\Presicion.ixx">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="include\Vector3.ixx">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="src\ParticleForceRegistry.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -52,6 +40,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="src\ParticleBuoyancy.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ParticleFakeSpring.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,6 +69,18 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="include\ParticleBuoyancy.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ParticleFakeSpring.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Precision.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Vector3.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Particle.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

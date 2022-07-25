@@ -3,29 +3,30 @@
 #include "Precision.h"
 #include "Vector3.h"
 #include "Particle.h"
-#include <IParticleForceGenerator.h>
+#include "IParticleForceGenerator.h"
 
 namespace Nebula
 {
 	namespace ForceGenerators
 	{
-		class ParticleBungee : public IParticleForceGenerator
+		class ParticleFakeSpring : public IParticleForceGenerator
 		{
 		private:
 
-			Particle& mOther;
+			Vector3 mAnchor{};
 			real mSpringStiffness{};
-			real mSpringRestLength{};
+			real mDamping{};
 
 		public:
 
-			ParticleBungee(
-				Particle& particle,
+			ParticleFakeSpring(
+				const Vector3& anchor,
 				real stiffness,
-				real restLength
+				real damping
 			);
 
 			void UpdateForce(Particle& particle, real duration) override;
+			void SetAnchor(const Vector3& anchor);
 
 		};
 	}

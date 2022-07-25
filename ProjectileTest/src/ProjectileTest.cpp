@@ -9,8 +9,7 @@
 #include <Mesh.h>
 #include <MeshRenderer.h>
 #include <Camera.h>
-
-import Core;
+#include <Particle.h>
 
 enum class WeaponType
 {

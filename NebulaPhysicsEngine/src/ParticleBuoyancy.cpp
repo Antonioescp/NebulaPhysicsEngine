@@ -2,7 +2,7 @@
 
 namespace Nebula
 {
-	inline namespace ForceGenerators
+	namespace ForceGenerators
 	{
 		ParticleBuoyancy::ParticleBuoyancy(
 			real maxDepth,
@@ -16,7 +16,7 @@ namespace Nebula
 			, mLiquidDensity{ liquidDensity }
 		{}
 
-		void ParticleBuoyancy::UpdateForce(Core::Particle& particle, real duration)
+		void ParticleBuoyancy::UpdateForce(Particle& particle, real duration)
 		{
 			if (particle.IsStaticBody()) return;
 
@@ -24,7 +24,7 @@ namespace Nebula
 
 			if (depth >= mWaterHeight + mMaxDepth) return;
 
-			Core::Vector3 force{};
+			Vector3 force{};
 
 			if (depth <= mWaterHeight - mMaxDepth)
 			{

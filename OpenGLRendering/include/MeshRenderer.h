@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Mesh.h>
-#include <Shader.h>
 #include <string>
 
-import Core;
+#include <Mesh.h>
+#include <Shader.h>
+#include <Vector3.h>
 
 class MeshRenderer 
 {
@@ -20,8 +20,8 @@ private:
 	void Buffer();
 
 public:
-	Nebula::Core::Vector3 position;
-	Nebula::Core::Vector3 scale;
+	Nebula::Vector3 position;
+	Nebula::Vector3 scale;
 	glm::vec3 color;
 	glm::mat4 view;
 	glm::mat4 projection;

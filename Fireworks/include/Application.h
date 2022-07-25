@@ -1,19 +1,18 @@
 #pragma once
 
-#include <Window.h>
-#include <Camera.h>
-#include <Mesh.h>
-#include <MeshRenderer.h>
-
-#include "../include/Firework.h"
-
 #include <random>
 #include <vector>
 #include <numbers>
 
 #include <format>
 
-import Core;
+#include <Window.h>
+#include <Camera.h>
+#include <Mesh.h>
+#include <MeshRenderer.h>
+#include <Vector3.h>
+#include <Particle.h>
+#include "../include/Firework.h"
 
 class Application : public Window
 {
@@ -55,7 +54,7 @@ private:
 
 		newFirework.SetVelocity(startVelocity);
 		newFirework.SetPosition(0.0f, 1.0f, 0.0f);
-		newFirework.SetAcceleration(Nebula::Core::Vector3::Gravity * 10.0f);
+		newFirework.SetAcceleration({0.0f, -100.0f, 0.0f});
 		newFirework.SetMass(1.0f);
 		newFirework.SetDamping(0.99f);
 

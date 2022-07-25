@@ -1,26 +1,30 @@
 #pragma once
 
+#include "Precision.h"
+#include "Vector3.h"
+#include "Particle.h"
 #include "IParticleForceGenerator.h"
 
-import Core;
-
-namespace Nebula::Core
+namespace Nebula
 {
-	class ParticleDrag : public IParticleForceGenerator
+	namespace ForceGenerators
 	{
-	private:
-		// Holds the velocity drag coefficient
-		real mK1;
+		class ParticleDrag : public IParticleForceGenerator
+		{
+		private:
+			// Holds the velocity drag coefficient
+			real mK1;
 
-		// Holds the velocity squared drag coefficient
-		real mK2;
+			// Holds the velocity squared drag coefficient
+			real mK2;
 
-	public:
+		public:
 
-		// Creates the generator with the given coefficients
-		ParticleDrag(real k1, real k2);
+			// Creates the generator with the given coefficients
+			ParticleDrag(real k1, real k2);
 
-		// Applies the drag force to the given particle
-		virtual void UpdateForce(Particle& particle, real duration);
-	};
+			// Applies the drag force to the given particle
+			virtual void UpdateForce(Particle& particle, real duration);
+		};
+	}
 }

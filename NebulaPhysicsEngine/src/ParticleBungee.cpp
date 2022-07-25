@@ -2,10 +2,10 @@
 
 namespace Nebula
 {
-	inline namespace ForceGenerators
+	namespace ForceGenerators
 	{
 		ParticleBungee::ParticleBungee(
-			Core::Particle& particle,
+			Particle& particle,
 			real stiffness,
 			real restLength
 		)
@@ -14,18 +14,18 @@ namespace Nebula
 			, mSpringRestLength{ restLength }
 		{}
 
-		void ParticleBungee::UpdateForce(Core::Particle& particle, real duration)
+		void ParticleBungee::UpdateForce(Particle& particle, real duration)
 		{
 			if (particle.IsStaticBody()) return;
 
-			Core::Vector3 direction{ particle.GetPosition() - mOther.GetPosition() };
+			Vector3 direction{ particle.GetPosition() - mOther.GetPosition() };
 			real distance{ direction.GetMagnitude() };
 			direction.Normalize();
 
 			// Skip compression force 
 			if (distance <= mSpringRestLength) return;
 
-			Core::Vector3 force{ -mSpringStiffness * (distance - mSpringRestLength) * direction };
+			Vector3 force{ -mSpringStiffness * (distance - mSpringRestLength) * direction };
 			particle.AddForce(force);
 		}
 	}

@@ -89,7 +89,7 @@
     <IntDir>$(SolutionDir)intermidiate\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
     <LibraryPath>$(SolutionDir)\External\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\External\include;$(SolutionDir)\OpenGLRendering\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\External\include;$(SolutionDir)\OpenGLRendering\include;$(SolutionDir)\NebulaPhysicsEngine\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
