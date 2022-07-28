@@ -24,6 +24,7 @@ namespace Nebula
 
 			ParticleSpring(Particle& particle, real stiffness, real restLength);
 			void UpdateForce(Particle& particle, real duration) override;
+
 		};
 	}
 }

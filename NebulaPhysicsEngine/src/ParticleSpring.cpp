@@ -1,5 +1,7 @@
 #include <ParticleSpring.h>
 
+#include <iostream>
+
 namespace Nebula
 {
 	namespace ForceGenerators
@@ -13,12 +15,16 @@ namespace Nebula
 		void ParticleSpring::UpdateForce(Particle& particle, real duration)
 		{
 			if (particle.IsStaticBody()) return;
-
+			// Calculating direction
 			Vector3 force{ particle.GetPosition() - mParticle.GetPosition() };
 			real distance{ force.GetMagnitude() };
 			force.Normalize();
 
-			force *= mStiffness * (mRestLength - distance);
+			// Getting force magnitude
+			real magnitude{ mStiffness * (mRestLength - distance) };
+			
+			// Getting force and applying it
+			force *= magnitude;
 			particle.AddForce(force);
 		}
 	}

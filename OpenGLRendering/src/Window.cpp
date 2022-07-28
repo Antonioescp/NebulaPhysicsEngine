@@ -12,8 +12,6 @@ Window::Window(int width, int height, std::string_view title)
 	glfwMakeContextCurrent(mWindow);
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	glViewport(0, 0, width, height);
-
-	glfwSetFramebufferSizeCallback(mWindow, FramebufferSizeCallback);
 }
 
 Window::~Window()
@@ -65,9 +63,4 @@ void Window::Update()
 
 void Window::Draw()
 {
-}
-
-void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
 }

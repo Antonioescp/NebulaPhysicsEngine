@@ -14,10 +14,12 @@ namespace Nebula
 		}
 
 		Vector3::Vector3()
-			: x{}, y{}, z{} {}
+			: x{}, y{}, z{} 
+		{}
 
 		Vector3::Vector3(const real x, const real y, const real z)
-			: x{ x }, y{ y }, z{ z } { }
+			: x{ x }, y{ y }, z{ z } 
+		{}
 
 		Vector3::Vector3(const Vector3& source)
 		{

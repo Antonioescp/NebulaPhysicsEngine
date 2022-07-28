@@ -27,5 +27,3 @@ protected:
 
 	GLFWwindow* mWindow;
 };
-
-void FramebufferSizeCallback(GLFWwindow* window, int width, int height);

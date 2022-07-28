@@ -4,7 +4,8 @@ namespace Nebula
 {
 	namespace ForceGenerators
 	{
-		// Registers a generator with a particle
+		// Registers a generator with a particle, allowing the generator to apply its force
+		// to the given particle
 		void ParticleForceRegistry::Add(Particle& particle, IParticleForceGenerator& generator)
 		{
 			ParticleForceRegistration newRecord{

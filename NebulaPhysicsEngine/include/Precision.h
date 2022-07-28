@@ -9,7 +9,7 @@ namespace Nebula
 	{
 		using real = float;
 
-		const std::function<real(real)> RealSqrt{sqrtf};
+		const std::function<real(real)> RealSqrt{ sqrtf };
 		const std::function<real(real, real)> RealPow{ powf };
 		const std::function<real(real)> RealAbs{ fabsf };
 		const std::function<real(real)> RealSin{ sinf };
